@@ -1,0 +1,61 @@
+/* Navbar subcomponent */
+/* Custom CSS styles for modifying the Bootstrap navigation bar */
+
+/* Background of the bar */
+.navbar {
+  background-image: linear-gradient(to bottom, #eeeeee, #ffffff, #eeeeee);
+  height: 84px;
+  border-bottom: 1px solid #7d7e7e;
+}
+
+.logo-image {
+  width: 156px;
+  height: 80px;
+  margin-right: 10px;
+}
+
+/* Link - default */
+.navbar-nav .nav-item .nav-link {
+  color: gray;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: inline-block;
+  padding: 10px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.navbar-nav .nav-item .nav-link.right {
+  text-align: right;
+}
+
+/* Link - hover */
+.navbar-nav .nav-item .nav-link:hover {
+  background: linear-gradient(to bottom, rgb(111, 104, 88), rgb(97, 118, 135));
+  border-radius: 5px;
+  color: white;
+  letter-spacing: 0.3em;
+}
+
+.navbar-item:hover .description {
+  display: block;
+}
+
+/* For this class to work, I had to import the useLocation hook from react-router-dom to get the path, activeClassName prop set to active */
+.navbar-nav .nav-item .active {
+  background: white; /* Added highlight on hover */
+  border: 1px solid black;
+  border-radius: 5px;
+  color: black;
+  letter-spacing: 0.3em;
+}
+
+/* Company name - UpstateBridge Bank */
+/* Note: Google font Belleza is imported in index.html */
+
+.navbar-brand {
+  padding: 1rem;
+  background-color: transparent;
+}

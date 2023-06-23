@@ -1,0 +1,173 @@
+/* DAY MODE STYLES */
+/* DAY MODE CARD */
+
+.card {
+    background-color: rgba(255, 255, 255, 0.6);
+    z-index: 2;
+    width: 62%;
+    align-self: center;
+    height: 100%;
+    border-radius: 5px;
+    padding: 30px;
+    box-shadow: 0px 20px 10px  rgba(75, 81, 85, 0.3);
+  }
+  
+  .card-wide {
+    background-color: rgba(255, 255, 255, 0.6);
+    z-index: 2;
+    width: 100%;
+    align-self: center;
+    height: 100%;
+    border-radius: 5px;
+    padding: 30px;
+    box-shadow: 0px 20px 10px  rgba(75, 81, 85, 0.3);
+  }
+  
+  .card-small {
+    background-color: rgba(255, 255, 255, 0.6);
+    z-index: 2;
+    width: 100%;
+    align-self: center;
+    height: 100%;
+    border-radius: 5px;
+    padding: 30px;
+    box-shadow: 0px 20px 10px  rgba(75, 81, 85, 0.3);
+  }
+  
+  .card-title {
+    font-size: 2.5vh;
+    color: black;
+    letter-spacing: 0.1em;
+  }
+  
+  p {
+    font-size: 2.3vh;
+    font-family: "Avenir", sans-serif;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto; /* responsive */
+    border-radius: 10px; /* rounded corners */
+  }
+  
+  .btn {
+    background-color: #4e6879;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: "Avenir", sans-serif;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    margin: 10px;
+  }
+  .btn:disabled {
+    background-color: #dadeda;
+    color: #4e6879;
+    cursor: not-allowed;
+  }
+
+  /* DAY MODE NAVIGATION */
+
+  /* NavBar subcomponent */
+/* Local CSS styles modify the Bootstrap navigation bar */
+
+/* background of bar */
+.navbar {
+    /*background-image: linear-gradient(to bottom, #4e6879, #6c8a95, #4e6879);*/
+    background-image: linear-gradient(to bottom, #eeeeee, #ffffff, #eeeeee);
+    height: 84px;
+    border-bottom: #7d7e7e;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+  }
+  
+  .logo-image {
+    width: 156px;
+    height: 80px;
+    /*border-radius: 50%;*/
+    margin-right: 10px;
+  }
+  
+  /* link - default */
+  .navbar-nav .nav-item .nav-link {
+    color: gray;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: inline-block;
+    padding: 10px;
+    margin: 0 10px;
+    cursor: pointer;
+  }
+  
+  .navbar-nav .nav-item .nav-link .right {
+    color: gray;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: right;
+    display: inline-block;
+    padding: 10px;
+    margin: 0 10px;
+    cursor: pointer;
+  }
+  
+  /* link - hover */
+  .navbar-nav .nav-item .nav-link:hover {
+    background: rgb(174, 173, 173); /* added highlight on hover */
+    border-radius: 5px;
+    color: white;
+    letter-spacing: 0.3em;
+  }
+  
+  .navbar-item:hover .description {
+    display: block;
+  }
+  
+  /* For this class to work, I had to import the useLocation hook from react-router-dom to get the path, activeClassName prop set to active */
+  .navbar-nav .nav-item .active {
+    background: white; /* added highlight on hover */
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    border-radius: 5px;
+    color: black;
+    letter-spacing: 0.3em;
+  }
+  
+  /* company logo area - UpstateBridge Bank */
+  /* note: Google font Belleza is imported in index.html */
+  
+  .navbar-brand {
+    padding: 1rem;
+    background-color: transparent;
+  }
+
+/* DAY MODE TABLE */
+/* STYLE: Modify Bootstrap Table */
+
+/* Top row */
+.table {
+    width: 100%;
+  }
+  
+  .table thead th {
+    background-image: linear-gradient(to bottom, #aaaaaa, #bbbbbb, #aaaaaa);
+    color: white;
+    letter-spacing: 0.1em;
+    padding: 0.5rem;
+  }
+  
+  /* Odd rows */
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #eeeeee;
+  }
+  
+  /* Even rows */
+  .table-striped tbody tr:nth-of-type(even) {
+    background-color: #ffffff;
+  }
