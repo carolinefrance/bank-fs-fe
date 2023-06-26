@@ -31,8 +31,8 @@ import './App.css';
 import './components/styles/night-mode.css';
 
 export const UserContext = createContext(null);
-export const baseUrl = "http://localhost:8080/api";           //<-- development mode
-// export const baseUrl = "https://bank-fs.onrender.com/api";   <-- production mode
+//export const baseUrl = "http://localhost:8080/api";           //<-- development mode
+export const baseUrl = "https://bank-fs.onrender.com/api";   //<-- production mode
 
 // What the App function does is it creates an array of users and a logged in user. It also creates functions to update the user array and the logged in user. It then renders the NavBar component and the Routes component. The NavBar component is rendered on every page; it needs to be placed inside BrowserRouter to work. The Routes component displays one selected subcomponent ("web page") at a time.
 function App() {
