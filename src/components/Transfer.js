@@ -1,12 +1,15 @@
 // Transfer.js
-import React, { useState, useContext, useEffect } from "react";
-import { UserContext, baseUrl } from "../App";
+//import React, { useState, useContext, useEffect } from "react"; <-- deleted useContext, eslint error
+import React, { useState, useEffect } from "react";
+//import { UserContext, baseUrl } from "../App"; <-- deleted UserContext, eslint error
+import { baseUrl } from "../App";
 import { Card, Button, Form } from "react-bootstrap";
-import "./styles/Card.css";
+//import './styles/day-mode.css';
+import './styles/night-mode.css';
 
 export function Transfer({loggedInUser, setLoggedInUser, updateUser, updateUserBalance}) {
   const [amount, setAmount] = useState("");
-  const ctx = useContext(UserContext);
+  //const ctx = useContext(UserContext); <-- deleted ctx, eslint error
   const [status, setStatus] = useState("");
   const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState("");
@@ -83,29 +86,45 @@ export function Transfer({loggedInUser, setLoggedInUser, updateUser, updateUserB
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <Card className="white" style={{ width: "35rem" }}>
+      <Card className="card">
         <Card.Img variant="top"
           src={`${process.env.PUBLIC_URL}/images/image-transfer.jpeg`} alt="card image cap"
         />
         <Card.Body>
-          <Card.Title>Transfer</Card.Title>
-          <Card.Text>Your current balance is ${loggedInUser?.balance}</Card.Text>
-          <Form>
-            <input type="text" className="form-control" id="amount" placeholder="Enter amount" value={amount} onChange={(e) => setAmount(e.currentTarget.value)}
+          <Card.Title>How much money do you want to transfer from your account?</Card.Title>
+          <Card.Text>Your current balance is <b>${loggedInUser?.balance}</b></Card.Text>
+          <Form className="d-flex flex-column align-items-center">
+            <br/>
+            <input
+              type="text"
+              className="form-control custom-input-blue"
+              id="amount"
+              placeholder="Enter dollar amount"
+              value={amount}
+              onChange={(e) => setAmount(e.currentTarget.value)}
             />
-            <br />
-            <select onChange={(e)=>setSelectedUser(e.target.value)}>
-                <option value="">Select recipient</option>
-                {users.map((user, index) => (
-                    <option key={index} value={user._id}>{user.name}-{user.email}</option>
-                ))}
-            </select>
+            <br/><br/>
+            <select
+              className="form-control custom-select"
+              onChange={(e) => setSelectedUser(e.target.value)}
+              value="" // Set an empty value to show the default option
+            >
+              <option value="" disabled>Click to select recipient</option>
+              {users.map((user, index) => (
+                <option key={index} value={user._id}>{user.name}-{user.email}</option>
+              ))}
+            </select><br/><br/>
             {status && <p>{status}</p>}
-            <Button type="button" className="btn btn-light" onClick={handleTransfer} disabled={status !== "" || amount === ""}
+            <Button
+              type="button"
+              variant="danger"
+              onClick={handleTransfer}
+              disabled={status !== "" || amount === ""}
             >
               Transfer
             </Button>
           </Form>
+
         </Card.Body>
       </Card>
     </div>

@@ -1,64 +1,100 @@
 /* NIGHT MODE STYLES */
 
-/* NIGHT MODE CARD */
+/* COLOR VARIABLES */
+:root {
+  --blueColorLt: rgb(144, 194, 238);
+  --blueColorMd: rgb(115, 167, 213);
+  --blueColorDk: rgb(74, 125, 169);
+  --blueColorInput: rgba(185, 204, 220, 0.9);
+  --greenColorInput: rgba(204, 216, 192, 0.7);
+}
+
+.blueText {
+  color: var(--blueColorMd);
+  font-size: 2.3vh;
+}
+
+/* NIGHT MODE CARD 
+black background, white text
+*/
+/* STYLE - sets % of screen width for card for each row */
 .card {
-  background-color: rgba(0, 0, 0, 0.6);
-  color: white;
   z-index: 2;
-  width: 62%;
+  width: 50%;
   align-self: center;
   height: 100%;
-  border-radius: 5px;
-  padding: 30px;
-  box-shadow: 0px 20px 10px rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+    z-index: 2;
   }
+}
   
   .card-wide, .card-small {
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 2;
-  width: 100%;
-  align-self: center;
-  height: 100%;
-  border-radius: 5px;
-  padding: 30px;
-  box-shadow: 0px 20px 10px rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 2;
+    width: 100%;
+    align-self: center;
+    height: 100%;
+    border-radius: 5px;
+    padding: 30px;
+    box-shadow: 0px 20px 10px rgba(0, 0, 0, 0.3);
+    color: white;
   }
   
   .card-title {
-  font-size: 2.5vh;
-  color: white;
-  letter-spacing: 0.1em;
+    font-size: 2.5vh;
+    color: white;
+    letter-spacing: 0.1em;
+    z-index: 2;
+  }
+
+  .card-text {
+    font-size: 2.3vh;
+    color: #eeeeee;
+    letter-spacing: 0.1em;
+    z-index: 2;
   }
   
   p {
-  font-size: 2.3vh;
-  font-family: "Avenir", sans-serif;
+    font-size: 2.3vh;
+    font-family: "Avenir", sans-serif;
   }
   
   img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
   }
   
   .btn {
-  background-color: #000000;
-  color: white;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-family: "Avenir", sans-serif;
-  letter-spacing: 0.2em;
-  text-decoration: none;
-  margin: 10px;
+    background: #FFFFFF;
+    color: black;
+    border-radius: 5px;
+    padding: 8px 25px;
+    font-size: 16px;
+    font-family: "Avenir", sans-serif;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    margin: 10px;
   }
   
   .btn:disabled {
-  background-color: #dadeda;
-  color: #4e6879;
-  cursor: not-allowed;
+    background-color: black;
+    color: white;
+    cursor: not-allowed;
   }
   
+  .button-container {
+    display: flex;
+    justify-content: center; /* Align items horizontally at the center */
+    align-items: center; /* Align items vertically at the center */
+  }
+    
   /* NIGHT MODE NAVIGATION */
   
   /* NavBar subcomponent /
@@ -72,31 +108,24 @@
   }
   
   .logo-image {
-  width: 156px;
-  height: 80px;
-  margin-right: 10px;
+    width: 140px;
+    height: auto;
+    margin: 7px;
   }
-  
+
+  .navbar-toggler {
+    position: relative;
+    z-index: 10; /* Adjust the z-index value as needed */
+    color: white;
+  }
+
   /* link - default */
   .navbar-nav .nav-item .nav-link {
-  color: #bbbbbb;
+  color: #cccccc;
   font-size: 18px;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  display: inline-block;
-  padding: 10px;
-  margin: 0 10px;
-  cursor: pointer;
-  }
-  
-  .navbar-nav .nav-item .nav-link .right {
-  color: gray;
-  font-size: 18px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  text-align: right;
   display: inline-block;
   padding: 10px;
   margin: 0 10px;
@@ -105,10 +134,10 @@
   
   /* link - hover */
   .navbar-nav .nav-item .nav-link:hover {
-  background: linear-gradient(to right, rgb(111, 104, 88), rgb(97, 118, 135));
-  border-radius: 5px;
-  color: white;
-  letter-spacing: 0.3em;
+    background: white;
+    color: black;
+    border-radius: 5px;
+    letter-spacing: 0.1em;
   }
   
   .navbar-item:hover .description {
@@ -117,11 +146,11 @@
   
   /* For this class to work, I had to import the useLocation hook from react-router-dom to get the path, activeClassName prop set to active */
   .navbar-nav .nav-item .active {
-  background: white;
-  border: 1px solid black;
-  border-radius: 5px;
-  color: black;
-  letter-spacing: 0.3em;
+    background: linear-gradient(to right, rgb(111, 104, 88), rgb(97, 118, 135));
+    color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    letter-spacing: 0.1em;
   }
   
   /* company logo area - UpstateBridge Bank /
@@ -133,27 +162,108 @@
   }
   
   /* NIGHT MODE TABLE */
-  
   /* STYLE: Modify Bootstrap Table */
-  
   /* Top row */
   .table {
-  width: 100%;
+    width: 100%;
+    color: white;
+  }
+
+  .table-bordered {
+    border-color: black;
+    border-width: 2px;
   }
   
   .table thead th {
-  background-image: linear-gradient(to bottom, #3c4e5e, #617687, #3c4e5e);
+  background-image: linear-gradient(to bottom, black, #222222, black);
   color: white;
   letter-spacing: 0.1em;
   padding: 0.5rem;
   }
-  
+  .table-striped tbody {
+    color: white;
+  }
+
   /* Odd rows */
   .table-striped tbody tr:nth-of-type(odd) {
-  background-color: #eeeeee;
+    color: white;
+    background-color: #555555;
+    letter-spacing: 0.1em;
   }
   
   /* Even rows */
   .table-striped tbody tr:nth-of-type(even) {
-  background-color: #ffffff;
-  }  
+    color: white;
+    background-color: #333333;
+    letter-spacing: 0.1em;
+  } 
+
+  /* List elements, bullets */
+  .card-list {
+    list-style-type: none; /* Hide the default bullet */
+    position: relative;
+    font-size: 2vh;
+    padding-top: 4px; /* Adjust the top padding */
+    padding-bottom: 4px; /* Adjust the bottom padding */
+  }
+  
+  .card-list::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -30px; /* distance of bullet from left */
+    width: 8px; /* width of bullet */
+    height: 10px; /* height of bullet */
+    background-color: var(--blueColorMd); /* Change the color of the bullet */
+    border-radius: 30%; /* Make the bullet rounded square */
+    transform: translateY(-50%);
+  }
+
+/* Input & Select Form field styles */
+.custom-input-blue {
+  background-color: var(--blueColorInput);
+  width: 50%;
+  align-self: center;
+}
+
+.custom-input-green {
+  background-color: var(--greenColorInput);
+  width: 50%;
+  align-self: center;
+}
+
+.custom-select {
+  background-color: rgba(185, 204, 220, 0.9);
+  width: 50%;
+  align-self: center;
+}
+
+/* Time */
+  .current-time {
+    font-size: 30px;
+    color: var(--blueColorMd);
+    padding-left: 20px;
+  }
+
+  /* Google Button */
+  .custom-google-login-button {
+    background-color: #000000;
+    color: #FFFFFF;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: "Avenir", sans-serif;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    margin: 10px;
+  }
+  .custom-google-logout-button {
+    background-color: #000000;
+    color: #FFFFFF;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: "Avenir", sans-serif;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+  }

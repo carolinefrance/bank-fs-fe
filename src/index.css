@@ -9,6 +9,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   background-image: url(../public/images/image-geometric-md-dark.png);
+  /*background-image: url(../public/images/image-geometric-light.png);*/
   background-repeat: no-repeat;
   background-size: cover;
 

@@ -1,26 +1,29 @@
-import React, { useContext, useState } from 'react';
-import { UserContext } from '../App';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import './styles/NavBar.css';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import LogoutButton from './LogoutButton';
 
 export function NavBar({ loggedInUser, logOut }) {
   const navigate = useNavigate();
-  const ctx = useContext(UserContext);
-  const [isDayMode, setIsDayMode] = useState(true); // Added state for day/night mode
+  const [currentTime, setCurrentTime] = useState('');
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const currentTime = new Date();
+      const hours = currentTime.getHours();
+      const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+      const amPm = hours >= 12 ? 'PM' : 'AM';
+      const twelveHourFormat = hours % 12 || 12;
+      setCurrentTime(`${twelveHourFormat}:${minutes} ${amPm}`);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   function handleLogOut() {
     logOut();
-    navigate("/");
+    navigate('/');
   }
 
-  function toggleDayNightMode() {
-    setIsDayMode((prevMode) => !prevMode);
-  }
-
-  const dayNightIcon = isDayMode
-    ? `${process.env.PUBLIC_URL}/images/image-moon-icon.png`
-    : `${process.env.PUBLIC_URL}/images/image-sun-icon.png`;
 
   return (
     <div>
@@ -28,6 +31,7 @@ export function NavBar({ loggedInUser, logOut }) {
         <NavLink className="navbar-brand" to="/">
           <img
             src={`${process.env.PUBLIC_URL}/images/image-bank-logo-night.png`}
+            width="130px"
             alt="UpstateBridge Bank"
             className="logo-image"
           />
@@ -40,11 +44,14 @@ export function NavBar({ loggedInUser, logOut }) {
           aria-controls="navbarNav"
           aria-expanded="false"
           aria-label="Toggle navigation"
+          z-index="3"
+          color="white"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon" z-index="3"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
+            <li><img src={`${process.env.PUBLIC_URL}/images/image-spacer.png`} alt="" width="475px" /></li>
             <li className="nav-item">
               <NavLink className="nav-link" activeClassName="active" exact to="/">
                 Home
@@ -70,6 +77,11 @@ export function NavBar({ loggedInUser, logOut }) {
             ) : (
               <>
                 <li className="nav-item">
+                  <NavLink className="nav-link" activeClassName="active" to="/resources">
+                    Resources
+                  </NavLink>
+                </li>
+                <li className="nav-item">
                   <NavLink className="nav-link" activeClassName="active" to="/transaction">
                     Transaction
                   </NavLink>
@@ -79,11 +91,6 @@ export function NavBar({ loggedInUser, logOut }) {
                     Transfer
                   </NavLink>
                 </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" activeClassName="active" to="/resources">
-                    Resources
-                  </NavLink>
-                </li>
                 {loggedInUser.isEmployee && (
                   <li className="nav-item">
                     <NavLink className="nav-link" activeClassName="active" to="/all-data">
@@ -91,26 +98,24 @@ export function NavBar({ loggedInUser, logOut }) {
                     </NavLink>
                   </li>
                 )}
+                <img src={`${process.env.PUBLIC_URL}/images/image-spacer.png`} alt="" width="325px" />
                 {loggedInUser.isGoogle ? (
                   <LogoutButton logOut={logOut} loggedInUser={loggedInUser} />
                 ) : (
                   <li className="nav-item">
-                    <span className="nav-link" onClick={handleLogOut}>
+                    <span className="nav-link ml-auto" onClick={handleLogOut}>
                       {loggedInUser.name} | Logout
                     </span>
                   </li>
                 )}
+                <li className="nav-item">
+                  <span className="current-time">
+                    {currentTime}
+                  </span>
+                </li>
               </>
             )}
           </ul>
-          <div className="navbar-icons">
-            <img
-              src={dayNightIcon}
-              alt="Toggle Day/Night Mode"
-              className="day-night-icon"
-              onClick={toggleDayNightMode}
-            />
-          </div>
         </div>
       </nav>
     </div>

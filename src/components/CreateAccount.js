@@ -1,17 +1,14 @@
 // CreateAccount.js
-/*
-Client ID
-104078153668-cqkljommcb3a2jmb13irs35mmptk5unb.apps.googleusercontent.com
+//import React, {useState, useEffect, useContext} from "react"; -- deleted useContext
+//import { UserContext, baseUrl }   from '../App'; -- deleted UserContext
 
-Client secret
-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
-*/
-
-import React, {useState, useEffect, useContext} from "react";
-import { UserContext, baseUrl } from '../App';
-import { Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import "./styles/Card.css";
+import React, {useState, useEffect} from "react";
+import { baseUrl } from '../App';
+import { Link, useNavigate }        from 'react-router-dom';
+import { Card }                     from 'react-bootstrap';
+import Form                         from "react-bootstrap/Form";
+//import "./styles/day-mode.css";
+import "./styles/night-mode.css";
 import LoginButton from './LoginButton';
 
 export function CreateAccount({addUser, setLoggedInUser}) {
@@ -21,7 +18,8 @@ export function CreateAccount({addUser, setLoggedInUser}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [users, setUsers] = useState([]);
-  const ctx = useContext(UserContext);
+  const navigate = useNavigate();
+  //const ctx = useContext(UserContext);
   useEffect(() => {
     fetch(`${baseUrl}/users`)
       .then(res => res.json())
@@ -40,13 +38,12 @@ export function CreateAccount({addUser, setLoggedInUser}) {
         text: "sign_up",
         shape: "rectangular",
       });
-      
     }
   }, []);
 
   function validate(field, label) {
     if (!field) {
-      setStatus("Error: " + label);
+      setStatus("Error: please enter your " + label);
       setTimeout(() => setStatus(""), 4000);
       return false;
     }
@@ -68,16 +65,17 @@ export function CreateAccount({addUser, setLoggedInUser}) {
     if (error) {
       console.log("Create account component: ", error);
       setStatus(error.message);
-    }
-    else {
+    } else {
       setShow(false); // shows else block
+      navigate("/transaction"); // Navigate to the transaction page
     }
   }
-
+  
   async function signUpWithGoogle(response) {
     console.log("response", response);
     setShow(false);
-    setLoggedInUser({name: "Guest", email: "Guest e-mail", _id: "Guest id"});
+    setLoggedInUser({ name: "Guest", email: "Guest e-mail", _id: "Guest id" });
+    navigate("/transaction"); // Navigate to the transaction page
   }
 
   function clearForm() {
@@ -89,31 +87,29 @@ export function CreateAccount({addUser, setLoggedInUser}) {
 
   return (
     <div style={{display: "flex", justifyContent: "center"}}>
-    <Card className="white" style={{ width: '35rem' }}>
-    <Card.Img variant="top" src={`${process.env.PUBLIC_URL}/images/image-account.jpg`} alt="card image cap" />
+    <Card className='card'>
+    <Card.Img variant="top" src={`${process.env.PUBLIC_URL}/images/image-bank2.jpeg`} alt="card image cap" />
       <Card.Body>
-        <Card.Title>Create an Account</Card.Title>
+        <Card.Title>Create an Account<br/><br/></Card.Title>
         { show ? (
           <>
+          <Form className="d-flex flex-column align-items-center">
             Name
             <br />
-            <input type="input" className="form-control" id="name" placeholder="Enter name" value={name} onChange={(e) => setName(e.currentTarget.value)}/><br />
-
+            <input type="input" className="form-control custom-input-blue" id="name" placeholder="Enter name" value={name} onChange={(e) => setName(e.currentTarget.value)}/><br />
             Email address
             <br />
-            <input type="input" className="form-control" id="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.currentTarget.value)}/><br />
+            <input type="input" className="form-control custom-input-blue" id="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.currentTarget.value)}/><br />
 
             Password
             <br />
-            <input type="password" className="form-control" id="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.currentTarget.value)}/><br />
-
+            <input type="password" className="form-control custom-input-blue" id="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.currentTarget.value)}/><br />
+            <br />
             {status && <p>{status}</p>}
-
-            <button type="button" className="btn btn-light" onClick={handleCreate}>
-              Sign up with email
-            </button>
-
-            <LoginButton buttonText="Sign up with Google" handleSubmit={addUser} />
+            <div className="button-container">
+              <LoginButton buttonText="Sign up with Google" handleSubmit={addUser} onClick={handleCreate} />
+            </div>
+          </Form>
           </>
         ) : (
           <>

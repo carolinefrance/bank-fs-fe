@@ -1,8 +1,8 @@
-// Transaction.js based on Deposit.js, has Deposit and Withdraw functionality
-import React, { useState, useContext } from "react";
-import { UserContext } from "../App";
+// Transaction.js has Deposit and Withdraw functionality
+//import React, { useState, useContext } from "react"; <-- deleted useContext, eslint error
+import React, { useState } from "react";
+//import { UserContext } from "../App"; <-- deleted UserContext, eslint error
 import Card from "react-bootstrap/Card";
-import "./styles/Card.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { baseUrl } from "../App";
@@ -84,27 +84,31 @@ const handleWithdraw = async() => {
   }
 
   function validate(field, label) {
-
-    if (isNaN(field)) {
+    const numericValue = field.replace(/[$,]/g, ""); // Remove dollar symbols and commas
+    if (isNaN(numericValue)) {
       setStatus("Error: " + label + " should be a number.");
       reset();
       return false;
-    } else if (Number(field) < 0) {
+    } else if (Number(numericValue) < 0) {
       setStatus("Error: " + label + " cannot be negative.");
       reset();
       return false;
-    }
-    else if (!field) {
+    } else if (!/^\d+(\.\d{1,2})?$/.test(numericValue)) {
+      setStatus("Error: " + label + " should have up to two decimal places.");
+      reset();
+      return false;
+    } else if (!field) {
       setStatus("Error: " + label + " cannot be empty.");
       reset();
       return false;
     }
     return true;
   }
+  
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <Card style={{ width: "35rem" }}>
+      <Card className="card">
         <Card.Img
           variant="top"
           src={`${process.env.PUBLIC_URL}/images/image-transaction.jpg`}
@@ -112,11 +116,11 @@ const handleWithdraw = async() => {
         />
         <Card.Body>
           <Card.Title>Transaction</Card.Title>
-          <Card.Text>Your current balance is ${loggedInUser?.balance}</Card.Text>
-          <Form>
+          <Card.Text>Your current balance is <b>${loggedInUser?.balance}</b></Card.Text>
+          <Form className="d-flex flex-column align-items-center">
             <input
               type="text"
-              className="form-control"
+              className="form-control custom-input-green"
               id="amount"
               placeholder="Enter amount"
               value={amount}
@@ -124,12 +128,25 @@ const handleWithdraw = async() => {
             />
             <br />
             {status && <p>{status}</p>}
-            <Button type="button" className="btn btn-light" onClick={handleDeposit} disabled={status !== "" || amount === ""}>
-            Deposit
-            </Button>
-            <Button type="button" className="btn btn-light" onClick={handleWithdraw} disabled={status !== "" || amount === ""}>
-            Withdraw
-            </Button>
+            <div className="d-flex justify-content-between">
+              <Button
+                type="button"
+                variant="success"
+                onClick={handleDeposit}
+                disabled={status !== "" || amount === ""}
+              >
+                Deposit
+              </Button>
+              <img src={`${process.env.PUBLIC_URL}/images/spacer.png`} alt="" width="70px" />
+              <Button
+                type="button"
+                variant="danger"
+                onClick={handleWithdraw}
+                disabled={status !== "" || amount === ""}
+              >
+                Withdraw
+              </Button>
+            </div>
           </Form>
         </Card.Body>
       </Card>

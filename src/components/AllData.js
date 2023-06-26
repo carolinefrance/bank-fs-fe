@@ -1,8 +1,8 @@
 // AllData.js
 import React, {useState, useEffect} from 'react';
 import { Card, Table } from 'react-bootstrap';
-import './styles/Card.css';
-import './styles/Table.css';
+//import './styles/day-mode.css';
+import './styles/night-mode.css';
 import {baseUrl} from '../App.js';
 
 export function AllData() {
@@ -30,7 +30,7 @@ export function AllData() {
   }
   return (
     <div style={{display: "flex", justifyContent: "center"}}>
-    <Card className="white" style={{ width: '60rem' }}>
+    <Card className="card" style={{ backgroundColor: "transparent", border: 0 }}>
     {/*<Card.Img variant="top" src={`${process.env.PUBLIC_URL}/images/image-data.jpg`} alt="card image cap" />*/}
       <Card.Body>
         <Card.Title>Customer and Employee Accounts</Card.Title>
@@ -38,20 +38,20 @@ export function AllData() {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Email</th>
+              <th>NAME</th>
+              <th>EMAIL</th>
               <th>ID</th>
-              <th>Balance</th>
+              <th>BALANCE</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             {users.map((user, index) => (
             <tr key={index}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user._id}</td>
-              <td>{user.balance}</td>
+              <td style={{ color: 'white' }}>{user.name}</td>
+              <td style={{ color: 'white' }}>{user.email}</td>
+              <td style={{ color: 'white' }}>{user._id}</td>
+              <td style={{ color: 'white' }}>{user.balance}</td>
               <td><button onClick={()=>deleteUser(user._id)}>Delete</button></td>
             </tr>
             ))}

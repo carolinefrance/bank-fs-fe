@@ -3,47 +3,54 @@
 // App.js sets routes for the NavBar component using BrowserRouter, Routes, and Route from react-router-dom.
 // Since the NavBar component is imported into App.js, it will be rendered in every page of the app.
 
-// React Router DOM components control the routing/navigation of the app
+// REACT -- React Router DOM components control the routing/navigation of the app
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// Subcomponents are the "web pages" of the app
-import { NavBar } from './components/NavBar';
-import { Home } from './components/Home';
-import { CreateAccount } from './components/CreateAccount';
-import { Login } from './components/Login';
-import { Transfer } from './components/Transfer';
-import { Resources } from './components/Resources';
-import { Transaction } from './components/Transaction';
-import { AllData } from './components/AllData';
-// React hooks
+// Hooks
 import { useState, createContext } from 'react';
-// Newly added from tutorial
-import { useEffect } from 'react';
-import { gapi } from 'gapi-script';
 
-// Parent style for main area of app: centers subcomponents
+// PAGES - Subcomponents are the "web pages" of the app
+import { AllData }        from './components/AllData';
+import { CreateAccount }  from './components/CreateAccount';
+import { Home }           from './components/Home';
+import { Login }          from './components/Login';
+import { NavBar }         from './components/NavBar';
+import { Resources }      from './components/Resources';
+import { Transaction }    from './components/Transaction';
+import { Transfer }       from './components/Transfer';
+
+// Google OAuth2
+import { useEffect }      from 'react';
+import { gapi }           from 'gapi-script';
+
+// STYLES
+// Parent style           centers bootstrap content
 import './App.css';
-/* Syntax notes: path names are not case sensitive, should be lowercase and hyphenated, and do not include a trailing slash. React component names are in CamelCase. Although my subcomponents are nested in a components folder, do not write "/components/subcomponent-name" because each subcomponent-name acts like a variable, not a full path. */
+// My styles              modify bootstrap styles
+
+//import './components/styles/day-mode.css';
+import './components/styles/night-mode.css';
 
 export const UserContext = createContext(null);
-// export const baseUrl = "http://localhost:8080/api"; <-- dev
-export const baseUrl = "https://bank-fs.onrender.com/api";
+export const baseUrl = "http://localhost:8080/api";           //<-- development mode
+// export const baseUrl = "https://bank-fs.onrender.com/api";   <-- production mode
+
 // What the App function does is it creates an array of users and a logged in user. It also creates functions to update the user array and the logged in user. It then renders the NavBar component and the Routes component. The NavBar component is rendered on every page; it needs to be placed inside BrowserRouter to work. The Routes component displays one selected subcomponent ("web page") at a time.
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [users, setUsers] = useState([]);
-
   const clientId = "104078153668-4vekiv951u5juj09ijpsv061iefmi7s6.apps.googleusercontent.com";
 
-useEffect(() => {
-  function start() {
-    gapi.client.init({
-      clientId: clientId,
-      scope: ''
-    })
-  };
+  // OAuth2, gapi = Google API
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId: clientId,
+        scope: ''
+      })
+    };
 
-  gapi.load('client', start);
-});
+    gapi.load('client', start);
+  });
 
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -51,37 +58,10 @@ useEffect(() => {
       setLoggedInUser(JSON.parse(user));
     }
   }, []);
-
-  async function updateUser(user) {
-    try {
-    const response = await fetch(`${baseUrl}/login`, {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    });
-    console.log("Login status: ", response.status);
-    if (response.status === 400) {
-      throw response;
-    }
-    const userData = await response.json();
-    console.log(userData);
-    setLoggedInUser(userData);
-    localStorage.setItem("user", JSON.stringify(userData));
-    return false;
-  } 
-  catch (err) {
-    if (err.status === 400) {
-      const message = await err.json();
-      console.log("Error: ", message);
-      return message;
-    }
-  }
-  }
+  
+  // CRUD: CREATE (user)
   async function addUser(user) {
-    /* setUsers([...users, user]); <-- FE version */
+    /* setUsers([...users, user]); <-- FE only version */
     try {
       const response = await fetch(`${baseUrl}/create`, {
         method: "POST",
@@ -108,10 +88,43 @@ useEffect(() => {
       }
     }
   }
+
   function logOut() {
     setLoggedInUser(null);
     localStorage.removeItem("user");
   }
+
+    // CRUD: UPDATE (user)
+    async function updateUser(user) {
+      try {
+      const response = await fetch(`${baseUrl}/login`, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      console.log("Login status: ", response.status);
+      if (response.status === 400) {
+        throw response;
+      }
+      const userData = await response.json();
+      console.log(userData);
+      setLoggedInUser(userData);
+      localStorage.setItem("user", JSON.stringify(userData));
+      return false;
+      } 
+      catch (err) {
+        if (err.status === 400) {
+          const message = await err.json();
+          console.log("Error: ", message);
+          return message;
+        }
+      }
+    }
+
+  // CRUD: UPDATE (user balance)
   function updateUserBalance(user) {
     const updatedUsers = users.map(u => {
       if (u.email === user.email) {
@@ -144,14 +157,9 @@ useEffect(() => {
     </div>
   );
 }
-/* DELETED
-<Route path="/deposit" element={<Deposit updateUser={updateUser} loggedInUser = {loggedInUser} updateUserBalance={updateUserBalance} />} />
-*/
+
 export default App;
 
-/*
-<Route path="/withdraw" element={<Withdraw updateUser={updateUser} loggedInUser = {loggedInUser} updateUserBalance={updateUserBalance} />} />
-*/
 
 // DOCUMENTATION
 // https://reactrouter.com/web/guides/primary-components

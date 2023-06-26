@@ -15,8 +15,8 @@ function checkDayNightMode() {
     var isDaytime = currentHour >= 6 && currentHour < 18;
   
     // Get the day mode and night mode stylesheets
-    var dayModeStylesheet = document.getElementById("day-mode");
-    var nightModeStylesheet = document.getElementById("night-mode");
+    var dayModeStylesheet = document.getElementById("styles/day-mode.css");
+    var nightModeStylesheet = document.getElementById("styles/night-mode.css");
   
     // Set the appropriate stylesheet based on the time of day
     if (isDaytime) {
