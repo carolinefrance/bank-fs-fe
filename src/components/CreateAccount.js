@@ -111,7 +111,7 @@ export function CreateAccount({addUser, setLoggedInUser}) {
             <br />
             {status && <p>{status}</p>}
             <div className="button-container">
-              <LoginButton buttonText="Sign up with Google" handleSubmit={addUser} onClick={handleCreate} afterSuccess={afterCreateAccountSuccess}/>
+              <LoginButton buttonText="Sign up with Google" handleSubmit={addUser} onClick={handleCreate} afterSuccess={afterCreateAccountSuccess} emailButtonText={"Sign up with e-mail"}/>
             </div>
           </Form>
           </>
