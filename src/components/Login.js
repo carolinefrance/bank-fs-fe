@@ -52,6 +52,9 @@ export function Login({updateUser, users}) {
     return true;
   }
 
+  function afterLoginSuccess() {
+    navigate("/transaction"); 
+  }
   // FUNCTION: handleLogin
   // PURPOSE:  Validates the user's email and password. If either field is empty, the user is prompted to enter a value. It finds the user from the users array. If the user is found, the user is logged in and navigated to the home page. If the user is not found, the user is navigated to the create account page.
   async function handleLogin() {
@@ -89,7 +92,7 @@ export function Login({updateUser, users}) {
             
             <div className="d-flex justify-content-between">
               
-              <LoginButton buttonText="Login with Google" handleSubmit={updateUser} onClick={handleLogin} />
+              <LoginButton buttonText="Login with Google" handleSubmit={updateUser} onClick={handleLogin} afterSuccess={afterLoginSuccess}/>
             </div>
             </Form>
           </>

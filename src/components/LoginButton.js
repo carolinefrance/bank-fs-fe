@@ -9,8 +9,8 @@ function LoginButton(props) {
   const onSuccess = async (res) => {
     console.log('Login Success! Current user:', res.profileObj);
     await props.handleSubmit({name: res.profileObj.givenName, email: res.profileObj.email, password: res.profileObj.googleId, isGoogle: true});
-    navigate("/transaction");
     //props.onClick(); // Call the onClick prop when the login is successful
+    props.afterSuccess();
   };
 
   const onFailure = (res) => {

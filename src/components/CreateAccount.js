@@ -85,6 +85,10 @@ export function CreateAccount({addUser, setLoggedInUser}) {
     setShow(true);
   }
 
+  function afterCreateAccountSuccess() {
+    setShow(false);
+  }
+
   return (
     <div style={{display: "flex", justifyContent: "center"}}>
     <Card className='card'>
@@ -107,7 +111,7 @@ export function CreateAccount({addUser, setLoggedInUser}) {
             <br />
             {status && <p>{status}</p>}
             <div className="button-container">
-              <LoginButton buttonText="Sign up with Google" handleSubmit={addUser} onClick={handleCreate} />
+              <LoginButton buttonText="Sign up with Google" handleSubmit={addUser} onClick={handleCreate} afterSuccess={afterCreateAccountSuccess}/>
             </div>
           </Form>
           </>
