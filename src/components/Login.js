@@ -92,7 +92,7 @@ export function Login({updateUser, users}) {
             
             <div className="d-flex justify-content-between">
               
-              <LoginButton buttonText="Login with Google" handleSubmit={updateUser} onClick={handleLogin} afterSuccess={afterLoginSuccess}/>
+              <LoginButton buttonText="Login with Google" handleSubmit={updateUser} onClick={handleLogin} afterSuccess={afterLoginSuccess} emailButtonText={"Log in with e-mail"}/>
             </div>
             </Form>
           </>

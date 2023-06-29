@@ -29,7 +29,7 @@ function LoginButton(props) {
         className="custom-google-login-button"
       />
     <button type="button" className="btn btn-light" onClick={props.onClick}>
-      Login with my email
+      {props.emailButtonText}
     </button>
     </div>
   );
